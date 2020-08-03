@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   config.h                                           :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/03 15:15:59 by mahnich           #+#    #+#             */
-/*   Updated: 2020/08/03 20:15:56 by mahnich          ###   ########.fr       */
+/*   Created: 2019/11/14 05:43:55 by mahnich           #+#    #+#             */
+/*   Updated: 2019/11/14 06:02:53 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONFIG_H
+#include "libft.h"
 
-# define CONFIG_H
-
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include "../gnl/get_next_line.h"
-
-# define DIRECTIONS "NSEW"
-# define VALID_MAP_CHARS "012NSEW"
-
-typedef struct s_config 
+void	*ft_calloc(size_t count, size_t size)
 {
-	int		requested_height;
-	int		requested_width;
-	int		rows;
-	int		colomuns;
-	char	*textures[5];
-	int		colors[2];
-}			t_config;
+	char	*mem;
 
-#endif
+	if (!(mem = malloc(count * size)))
+		return (NULL);
+	if (mem)
+		ft_bzero(mem, size * count);
+	return (mem);
+}

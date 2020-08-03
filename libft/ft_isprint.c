@@ -1,35 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   config.h                                           :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/03 15:15:59 by mahnich           #+#    #+#             */
-/*   Updated: 2020/08/03 20:15:56 by mahnich          ###   ########.fr       */
+/*   Created: 2019/11/14 01:31:24 by mahnich           #+#    #+#             */
+/*   Updated: 2019/11/14 01:32:02 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONFIG_H
-
-# define CONFIG_H
-
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include "../gnl/get_next_line.h"
-
-# define DIRECTIONS "NSEW"
-# define VALID_MAP_CHARS "012NSEW"
-
-typedef struct s_config 
+int	ft_isprint(int c)
 {
-	int		requested_height;
-	int		requested_width;
-	int		rows;
-	int		colomuns;
-	char	*textures[5];
-	int		colors[2];
-}			t_config;
-
-#endif
+	if (c > 31 && c < 127)
+		return (1);
+	else
+		return (0);
+}

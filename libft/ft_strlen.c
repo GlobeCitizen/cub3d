@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   config.h                                           :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/03 15:15:59 by mahnich           #+#    #+#             */
-/*   Updated: 2020/08/03 20:15:56 by mahnich          ###   ########.fr       */
+/*   Created: 2019/11/14 00:32:25 by mahnich           #+#    #+#             */
+/*   Updated: 2019/11/14 04:31:27 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONFIG_H
+#include <string.h>
 
-# define CONFIG_H
-
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include "../gnl/get_next_line.h"
-
-# define DIRECTIONS "NSEW"
-# define VALID_MAP_CHARS "012NSEW"
-
-typedef struct s_config 
+size_t	ft_strlen(const char *s)
 {
-	int		requested_height;
-	int		requested_width;
-	int		rows;
-	int		colomuns;
-	char	*textures[5];
-	int		colors[2];
-}			t_config;
+	size_t i;
 
-#endif
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}

@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   config.h                                           :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/03 15:15:59 by mahnich           #+#    #+#             */
-/*   Updated: 2020/08/03 20:15:56 by mahnich          ###   ########.fr       */
+/*   Created: 2019/11/14 05:37:02 by mahnich           #+#    #+#             */
+/*   Updated: 2019/11/16 04:18:13 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONFIG_H
+#include "libft.h"
 
-# define CONFIG_H
-
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include "../gnl/get_next_line.h"
-
-# define DIRECTIONS "NSEW"
-# define VALID_MAP_CHARS "012NSEW"
-
-typedef struct s_config 
+char		*ft_strdup(const char *s1)
 {
-	int		requested_height;
-	int		requested_width;
-	int		rows;
-	int		colomuns;
-	char	*textures[5];
-	int		colors[2];
-}			t_config;
+	char	*s;
+	char	*cp;
 
-#endif
+	s = (char *)s1;
+	if (!(cp = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1))))
+		return (NULL);
+	ft_strlcpy(cp, s1, ft_strlen(s) + 1);
+	return (cp);
+}

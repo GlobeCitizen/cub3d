@@ -6,7 +6,7 @@
 /*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 11:24:12 by mahnich           #+#    #+#             */
-/*   Updated: 2020/01/09 19:50:59 by mahnich          ###   ########.fr       */
+/*   Updated: 2020/08/03 15:55:19 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define ERROR -1
 # define NEXTLINE 1
 # define EF 0
+# define BUFFER_SIZE 1024
 
 # include <string.h>
 # include <stdlib.h>

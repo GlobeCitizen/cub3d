@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   config.h                                           :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/03 15:15:59 by mahnich           #+#    #+#             */
-/*   Updated: 2020/08/03 20:15:56 by mahnich          ###   ########.fr       */
+/*   Created: 2019/11/10 02:58:23 by mahnich           #+#    #+#             */
+/*   Updated: 2019/11/16 04:37:30 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONFIG_H
+#include "libft.h"
 
-# define CONFIG_H
-
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include "../gnl/get_next_line.h"
-
-# define DIRECTIONS "NSEW"
-# define VALID_MAP_CHARS "012NSEW"
-
-typedef struct s_config 
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	int		requested_height;
-	int		requested_width;
-	int		rows;
-	int		colomuns;
-	char	*textures[5];
-	int		colors[2];
-}			t_config;
+	unsigned char	*q;
+	unsigned char	*p;
+	size_t			i;
 
-#endif
+	i = -1;
+	p = (unsigned char *)src;
+	q = (unsigned char *)dst;
+	if (p < q)
+		while ((int)(--len) >= 0)
+			*(q + len) = *(p + len);
+	else
+		ft_memcpy(dst, src, len);
+	return (dst);
+}

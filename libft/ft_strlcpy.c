@@ -1,35 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   config.h                                           :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/03 15:15:59 by mahnich           #+#    #+#             */
-/*   Updated: 2020/08/03 20:15:56 by mahnich          ###   ########.fr       */
+/*   Created: 2019/11/14 01:51:46 by mahnich           #+#    #+#             */
+/*   Updated: 2019/11/16 02:26:24 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONFIG_H
+#include "libft.h"
 
-# define CONFIG_H
-
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include "../gnl/get_next_line.h"
-
-# define DIRECTIONS "NSEW"
-# define VALID_MAP_CHARS "012NSEW"
-
-typedef struct s_config 
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	int		requested_height;
-	int		requested_width;
-	int		rows;
-	int		colomuns;
-	char	*textures[5];
-	int		colors[2];
-}			t_config;
+	char	*p;
+	size_t	i;
+	size_t	n;
 
-#endif
+	i = 0;
+	n = dstsize;
+	p = (char *)src;
+	if (!src)
+		return (0);
+	if (n != 0)
+	{
+		while (--n != 0)
+		{
+			if ((*dst++ = *p++) == '\0')
+				break ;
+		}
+	}
+	if (n == 0)
+	{
+		if (dstsize != 0)
+			*dst = '\0';
+	}
+	return (ft_strlen(src));
+}

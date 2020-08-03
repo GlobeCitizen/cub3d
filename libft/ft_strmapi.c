@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   config.h                                           :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/03 15:15:59 by mahnich           #+#    #+#             */
-/*   Updated: 2020/08/03 20:15:56 by mahnich          ###   ########.fr       */
+/*   Created: 2019/11/16 05:00:23 by mahnich           #+#    #+#             */
+/*   Updated: 2019/11/28 21:15:47 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONFIG_H
+#include "libft.h"
 
-# define CONFIG_H
-
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include "../gnl/get_next_line.h"
-
-# define DIRECTIONS "NSEW"
-# define VALID_MAP_CHARS "012NSEW"
-
-typedef struct s_config 
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int		requested_height;
-	int		requested_width;
-	int		rows;
-	int		colomuns;
-	char	*textures[5];
-	int		colors[2];
-}			t_config;
+	char	*res;
+	int		i;
+	int		len;
 
-#endif
+	if (!s || !(*f))
+		return (NULL);
+	i = 0;
+	len = ft_strlen(s);
+	if (!(res = (char *)malloc((len + 1) * sizeof(char))))
+		return (NULL);
+	while (s[i])
+	{
+		res[i] = (f)(i, s[i]);
+		i++;
+	}
+	res[i] = 0;
+	return (res);
+}

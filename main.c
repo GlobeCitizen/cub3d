@@ -6,15 +6,15 @@
 /*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 17:33:17 by mahnich           #+#    #+#             */
-/*   Updated: 2020/07/22 12:19:35 by mahnich          ###   ########.fr       */
+/*   Updated: 2020/07/24 03:54:31 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
-#include "libft/libft.h"
 
 typedef struct  s_vars {
     void        *mlx;
@@ -49,34 +49,6 @@ void	draw_circle(t_vars *param, int x, int y, int r)
 	}
 }
 
-int		render_next_frame(int key, t_vars *param)
-{
-	if (key == 124 || key == 123 || key == 125 || key == 126)
-	mlx_clear_window(param->mlx, param->win);
-	static int r = 30;
-	static int x = 500;
-	static int y = 500;
-	if (key == 124)
-	{
-		draw_circle(param, x += 10, y, r++);
-	}
-	if (key == 123)
-	{
-		draw_circle(param, x -= 10, y, r--);
-	}
-	if (key == 126)
-	{
-		draw_circle(param, x, y-=10, r*=10);
-	}
-	if (key == 125)
-	{
-		draw_circle(param, x, y+=10, r/=10);
-	}
-
-	printf("key: %i\n", key);
-	return(0);
-}
-
 int	main()
 {
 	t_vars vars;
@@ -84,8 +56,5 @@ int	main()
 	vars.i = 0;
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "cub3d");
-	//draw_circle(&vars, 500, 500, 100);
-	mlx_hook(vars.win, 2, 0, render_next_frame,  &vars);
-
 	mlx_loop(vars.mlx);
 }
