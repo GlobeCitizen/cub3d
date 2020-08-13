@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   config.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mahnich <mahnich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 15:15:59 by mahnich           #+#    #+#             */
-/*   Updated: 2020/08/03 20:15:56 by mahnich          ###   ########.fr       */
+/*   Updated: 2020/08/13 20:44:04 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,29 @@
 # define DIRECTIONS "NSEW"
 # define VALID_MAP_CHARS "012NSEW"
 
-typedef struct s_config 
+typedef struct	s_config
 {
 	int		requested_height;
 	int		requested_width;
 	int		rows;
+	int		rows2;
 	int		colomuns;
+	int		ceil;
+	int		floor;
 	char	*textures[5];
 	int		colors[2][3];
-}			t_config;
+	int		**map_buffer;
+}				t_config;
 
-void	parse_resolution(t_config *config, char	*line);
-void	parse_textures(t_config *config, char *line);
-void	parse_colors(t_config *config, char *line);
-void	free_split(char **splitted);
+int				parse_resolution(t_config *config, char	*line);
+int				parse_textures(t_config *config, char *line);
+int				parse_colors(t_config *config, char *line);
+int     		parse_config(t_config *config, char *line);
+int				check_config(t_config *config);
+void			print_error_free(t_config *config);
+int				count_rows_colomuns(t_config *config, const char *conf_path);
+int				parse_map(t_config *config, char *line);
+int				initialize_map(t_config *config);
+int				fill_map(t_config *config, char *line);
 
 #endif

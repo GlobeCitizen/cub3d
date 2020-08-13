@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   config.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mahnich <mahnich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 15:36:49 by mahnich           #+#    #+#             */
-/*   Updated: 2020/08/03 20:34:40 by mahnich          ###   ########.fr       */
+/*   Updated: 2020/08/13 21:20:30 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "config.h"
-
-void	free_split(char **splitted)
-{
-	int	i;
-
-	i = 0;
-	while (splitted[i])
-		free(splitted[i++]);
-	free(splitted);
-}
 
 void	init_config(t_config *config)
 {
@@ -33,73 +23,78 @@ void	init_config(t_config *config)
 	while (i < 5)
 		config->textures[i++] = NULL;
 	i = -1;
-	while (i++ < 2)
+	while (i++ < 1)
 	{
 		j = 0;
-		while(j < 3)
+		while (j < 3)
 			config->colors[i][j++] = -1;
 	}
 	config->rows = 0;
+	config->rows2 = 0;
 	config->colomuns = 0;
+	config->ceil = 0;
+	config->floor = 0;
 }
 
-int		check_config(t_config *config)
+void	clear_config(t_config *config)
 {
-	int	i;
-	int	j;
-	int	flag;
+	int		i;
 
 	i = 0;
-	flag = 1;
-	if (config->requested_height != 0 && config->requested_width != 0)
-	{
-		while (i < 5)
-			flag = flag * (config->textures[i++] != NULL);
-		i = -1;
-		while (i++ < 2)
-		{
-			j = 0;
-			while (j < 3)
-			flag = flag * (config->colors[i][j++] >= 0 && config->colors[i][j++] <= 255);
-		}
-		return (flag);
-	}
-	return (0);
+	while (i < 5)
+		free(config->textures[i++]);
 }
 
-int		parse_config(t_config *config, const char *conf_path)
+int		main_parser(t_config *config, const char *conf_path)
 {
 	int		c_fd;
 	char	*line;
+	int		r;
 
+	r = 1;
+	count_rows_colomuns(config, conf_path);
 	if ((c_fd = open(conf_path, O_RDONLY)) < 0)
 		return (0);
-	while(get_next_line(c_fd, &line))
+	r *= initialize_map(config);
+	printf("colomuns == [%i] and rows == [%i]\n", config->colomuns, config->rows);
+	while (get_next_line(c_fd, &line))
 	{
-		if (!ft_strncmp(line, "R", 1))
-			parse_resolution(config, line);
-		else if (!strncmp(line,"NO", 2) || !strncmp(line, "SO", 2) ||
-				!strncmp(line, "WE", 2) || !strncmp(line, "EA", 2))
-			parse_textures(config, line);
-		else if (!strncmp(line, "C", 1) || !strncmp(line, "F", 1))
-			parse_colors(config, line);
-		if (check_config(config))
-			break;
+		r *= parse_config(config, line);
+		r *= parse_map(config, line);
 		free(line);
-
 	}
 	free(line);
+	if (!r || !check_config(config)) //|| !check_map(config))
+	{
+		print_error_free(config);
+		//print_error_free_map(config);
+		return (0);
+	}
 	close(c_fd);
-	return (0);
+	return (1);
 }
 
-int main()
+int		main(void)
 {
 	t_config	*config;
-	
+	int			i;
+	int			j;
+
+	i = 0;
 	if (!(config = (t_config *)malloc(sizeof(t_config))))
 		return (0);
 	init_config(config);
-	parse_config(config, "../maps/first.cub");
+	main_parser(config, "../maps/first.cub");
+	while (i < config->rows)
+	{
+		j = 0;
+		while (j < config->colomuns)
+			printf("%i ", config->map_buffer[i][j++]);
+		printf("\n");
+		i++;
+	}
+	//printf("texture path == [%i]", config->colors[0][0]);
+	clear_config(config);
 	free(config);
+	//system("leaks a.out");
 }
