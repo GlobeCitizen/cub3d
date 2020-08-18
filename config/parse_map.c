@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mahnich <mahnich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 17:08:49 by mahnich           #+#    #+#             */
-/*   Updated: 2020/08/13 21:20:28 by mahnich          ###   ########.fr       */
+/*   Updated: 2020/08/18 20:19:08 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "config.h"
+
+void	free_map(t_config *config)
+{
+	int		i;
+
+	i = 0;
+	while (i < config->rows)
+		free(config->map_buffer[i++]);
+	free(config->map_buffer);
+}
 
 int		count_rows_colomuns(t_config *config, const char *conf_path)
 {
@@ -43,7 +53,7 @@ int		initialize_map(t_config *config)
 	int	j;
 
 	i = 0;
-	if (!(config->map_buffer = (int **)malloc(sizeof(int) * config->rows)))
+	if (!(config->map_buffer = (int **)malloc(sizeof(int *) * config->rows)))
 		return (0);
 	while (i < config->rows)
 	{
@@ -81,22 +91,21 @@ int		fill_map(t_config *config, char *line)
 			config->map_buffer[config->rows2][i] = -1;
 		else
 			r = 0;
-		printf("ici2 i ==[%i] and j == [%i]\n", config->rows2 , i);
 		i++;
 	}
 	config->rows2++;
-
 	return (r);
 }
 
 int		parse_map(t_config *config, char *line)
 {
-//	if (line[0] != 'R' && ft_strncmp(line, "NO", 2) &&
-//			ft_strncmp(line, "SO", 2) && ft_strncmp(line, "WE", 2) &&
-//			ft_strncmp(line, "EA", 2) && line[0] != 'S' && line[0] != 'C'
-//			&& line[0] != 'F' && line[0] != 0)
-//	{
-//		fill_map(config, line);
-//	}
-	return (1);
+	int		r;
+
+	r = 1;
+	if (line[0] != 'R' && ft_strncmp(line, "NO", 2) &&
+			ft_strncmp(line, "SO", 2) && ft_strncmp(line, "WE", 2) &&
+			ft_strncmp(line, "EA", 2) && line[0] != 'S' && line[0] != 'C'
+			&& line[0] != 'F' && line[0] != 0)
+		r = fill_map(config, line);
+	return (r);
 }

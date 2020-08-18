@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_params.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mahnich <mahnich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 15:33:42 by mahnich           #+#    #+#             */
-/*   Updated: 2020/08/03 15:36:38 by mahnich          ###   ########.fr       */
+/*   Updated: 2020/08/18 20:24:49 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		parse_textures(t_config *config, char *line)
 
 	if (!check_duplicate_textures(config, line))
 	{
-		write(1, "Error : Textures Duplicate!\n", 30);
+		write(1, "Error : Textures Duplicate!\n", 28);
 		return (0);
 	}
 	textures = ft_split(line, ' ');

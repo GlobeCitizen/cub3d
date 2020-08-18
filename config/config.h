@@ -6,7 +6,7 @@
 /*   By: mahnich <mahnich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 15:15:59 by mahnich           #+#    #+#             */
-/*   Updated: 2020/08/13 20:44:04 by mahnich          ###   ########.fr       */
+/*   Updated: 2020/08/18 20:15:51 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,14 @@ int				count_rows_colomuns(t_config *config, const char *conf_path);
 int				parse_map(t_config *config, char *line);
 int				initialize_map(t_config *config);
 int				fill_map(t_config *config, char *line);
+void			free_map(t_config *config);
+int     		check_first_last_line(t_config *config);
+int				check_left_right_borders(t_config *config);
+int				check_holes(t_config *config);
+void			print_error_map(int r, t_config *config);
+
+
+
+
 
 #endif

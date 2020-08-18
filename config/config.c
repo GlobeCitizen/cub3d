@@ -6,7 +6,7 @@
 /*   By: mahnich <mahnich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 15:36:49 by mahnich           #+#    #+#             */
-/*   Updated: 2020/08/13 21:20:30 by mahnich          ###   ########.fr       */
+/*   Updated: 2020/08/18 21:59:33 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,51 +50,40 @@ int		main_parser(t_config *config, const char *conf_path)
 	int		c_fd;
 	char	*line;
 	int		r;
-
+	int		r2;
+	
 	r = 1;
+	r2 = 1;
 	count_rows_colomuns(config, conf_path);
 	if ((c_fd = open(conf_path, O_RDONLY)) < 0)
 		return (0);
 	r *= initialize_map(config);
-	printf("colomuns == [%i] and rows == [%i]\n", config->colomuns, config->rows);
 	while (get_next_line(c_fd, &line))
 	{
 		r *= parse_config(config, line);
-		r *= parse_map(config, line);
+		r2 *= parse_map(config, line);
 		free(line);
 	}
 	free(line);
-	if (!r || !check_config(config)) //|| !check_map(config))
+	if (!r || !check_config(config) || !r2)
 	{
 		print_error_free(config);
-		//print_error_free_map(config);
+		print_error_map(r2, config);
 		return (0);
 	}
 	close(c_fd);
-	return (1);
+	return (r * r2);
 }
 
-int		main(void)
+int		parse_config_map(const char *map_path)
 {
 	t_config	*config;
-	int			i;
-	int			j;
+	int			r;
 
-	i = 0;
+	r = 1;
 	if (!(config = (t_config *)malloc(sizeof(t_config))))
 		return (0);
 	init_config(config);
-	main_parser(config, "../maps/first.cub");
-	while (i < config->rows)
-	{
-		j = 0;
-		while (j < config->colomuns)
-			printf("%i ", config->map_buffer[i][j++]);
-		printf("\n");
-		i++;
-	}
-	//printf("texture path == [%i]", config->colors[0][0]);
-	clear_config(config);
-	free(config);
-	//system("leaks a.out");
+	r = main_parser(config, map_path);
+	return (r);
 }
